@@ -53,6 +53,8 @@ struct TasksView: View {
     
     var body: some View {
         NavigationStack{
+            Text("Hello")
+                
             ScrollView{
                 ForEach(taskViewModel.tasks){ task in
                     NavigationLink(destination: TaskDetailsView(task: task)) {
@@ -67,11 +69,12 @@ struct TasksView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
-                    HStack {
+                    HStack() {
                         Button {
                             showAddTask = true
                         } label: {
                             NewTaskButtonLabel()
+                                
                                 
                     }
                         Spacer()
