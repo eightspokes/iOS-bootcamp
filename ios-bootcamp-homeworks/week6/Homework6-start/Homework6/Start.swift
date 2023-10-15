@@ -5,7 +5,7 @@
 import SwiftUI
 
 @main
-struct Homework5App: App {
+struct Start: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
