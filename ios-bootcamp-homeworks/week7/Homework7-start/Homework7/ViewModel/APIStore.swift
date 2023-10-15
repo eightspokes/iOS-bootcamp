@@ -64,8 +64,6 @@ class APIStore {
       do {
         // Encode the object to JSON data
         let jsonData = try encoder.encode(object)
-        
-        // Get the document directory URL
         if let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
           // Construct the file URL using the given file name
           let fileURL = documentDirectoryURL.appendingPathComponent(fileName).appendingPathExtension(fileType)
