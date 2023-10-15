@@ -1,15 +1,15 @@
 /// Copyright (c) 2023 Kodeco Inc.
-///
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
+/// 
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -32,14 +32,25 @@
 
 import SwiftUI
 
-struct ContentView: View {
-  var body: some View {
-    APIListView()
-  }
+struct APIDetailsView: View {
+  var api: APIEntry
+    var body: some View {
+      VStack(alignment: .leading, spacing: 16) {
+                  Text("API: \(api.API)")
+                      .font(.title)
+                  Text("Description: \(api.Description)")
+                  Text("Authentication: \(api.Auth)")
+                  Text("HTTPS: \(api.HTTPS ? "Yes" : "No")")
+                  Text("CORS: \(api.Cors)")
+                  Text("Category: \(api.Category)")
+                  Link("Link", destination: URL(string: api.Link)!)
+              }
+              .padding()
+              .navigationBarTitle(api.API)
+    }
 }
-
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
-  }
+struct APIDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+      APIDetailsView(api: APIEntry(API: "API", Description: "description", Auth: "Auth", HTTPS: true, Cors: "Cors", Link: "Link", Category: "Category" ))
+    }
 }

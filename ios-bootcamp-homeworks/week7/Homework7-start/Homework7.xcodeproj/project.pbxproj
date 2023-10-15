@@ -12,6 +12,10 @@
 		18D775C722AD944400AE281E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C622AD944400AE281E /* Assets.xcassets */; };
 		18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C922AD944400AE281E /* Preview Assets.xcassets */; };
 		18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D775DA22AD963800AE281E /* LaunchScreen.storyboard */; };
+		30B845CA2ADC5B5C0009F747 /* APIEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B845C92ADC5B5C0009F747 /* APIEntry.swift */; };
+		30B845CD2ADC5C4A0009F747 /* APIStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B845CC2ADC5C4A0009F747 /* APIStore.swift */; };
+		30B845D02ADC5DC20009F747 /* APIDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B845CF2ADC5DC20009F747 /* APIDetailsView.swift */; };
+		30B845D22ADC619B0009F747 /* APIListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B845D12ADC619B0009F747 /* APIListView.swift */; };
 		BAF39C2E2AB792B400B18802 /* apilist.json in Resources */ = {isa = PBXBuildFile; fileRef = BAF39C2D2AB792B400B18802 /* apilist.json */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +27,10 @@
 		18D775C922AD944400AE281E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		18D775CE22AD944400AE281E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D775DE22AD96B400AE281E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		30B845C92ADC5B5C0009F747 /* APIEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEntry.swift; sourceTree = "<group>"; };
+		30B845CC2ADC5C4A0009F747 /* APIStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStore.swift; sourceTree = "<group>"; };
+		30B845CF2ADC5DC20009F747 /* APIDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDetailsView.swift; sourceTree = "<group>"; };
+		30B845D12ADC619B0009F747 /* APIListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListView.swift; sourceTree = "<group>"; };
 		BAF39C2D2AB792B400B18802 /* apilist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = apilist.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,6 +66,9 @@
 		18D775BF22AD944300AE281E /* Homework7 */ = {
 			isa = PBXGroup;
 			children = (
+				30B845CE2ADC5D910009F747 /* Views */,
+				30B845CB2ADC5C2D0009F747 /* ViewModel */,
+				30B845C82ADC5A990009F747 /* Model */,
 				1839F4AF25190F2A00BB00F1 /* AppMain.swift */,
 				18D775C422AD944300AE281E /* ContentView.swift */,
 				18D775C622AD944400AE281E /* Assets.xcassets */,
@@ -75,6 +86,31 @@
 				18D775C922AD944400AE281E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		30B845C82ADC5A990009F747 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				30B845C92ADC5B5C0009F747 /* APIEntry.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		30B845CB2ADC5C2D0009F747 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				30B845CC2ADC5C4A0009F747 /* APIStore.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		30B845CE2ADC5D910009F747 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				30B845CF2ADC5DC20009F747 /* APIDetailsView.swift */,
+				30B845D12ADC619B0009F747 /* APIListView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,8 +208,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30B845CD2ADC5C4A0009F747 /* APIStore.swift in Sources */,
+				30B845D22ADC619B0009F747 /* APIListView.swift in Sources */,
 				18D775C522AD944300AE281E /* ContentView.swift in Sources */,
+				30B845D02ADC5DC20009F747 /* APIDetailsView.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,
+				30B845CA2ADC5B5C0009F747 /* APIEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
