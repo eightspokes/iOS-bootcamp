@@ -38,16 +38,28 @@ struct APIListView: View {
     @State private var apis: APIDetails?
     @State private var errorMessage: String?
     @State private var isAlertPresented = false
+    @ObservedObject var apiStoreViewModel = APIStore()
   
   var body: some View {
     NavigationStack {
+      if apiStoreViewModel.isLoading{
+        VStack{
+          Spacer()
+          Text("Fetching data from remote API...")
+            .foregroundColor(.blue)
+          ProgressView()
+            .progressViewStyle(CircularProgressViewStyle(tint:.blue ))
+            .padding(.top)
+        }
+        
+      }
       List(apis?.entries ?? [], id: \.API) { api in
               NavigationLink(destination: APIDetailsView(api: api)) {
                   Text(api.API)
               }
           }
-          .onAppear {
-                    APIStore.shared.loadAPIs{ result in
+          .task {
+            await apiStoreViewModel.loadAPIs{ result in
                         switch result {
                         case .success(let apis):
                             self.apis = apis
