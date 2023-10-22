@@ -33,33 +33,72 @@
 
 import Foundation
 
-class APIStore {
-  static let shared = APIStore()
+@MainActor class APIStore: ObservableObject {
+  @Published var isLoading: Bool = false
   let fileName = "apilist"
   let fileType = "json"
+  let urlString = "https://api.publicapis.org/entries"
   
-  func loadAPIs(completion: @escaping (Result<APIDetails, Error>) -> Void) {
-    loadAPIsFromBundle(from: fileName, with: fileType) {  bundleResult in
-      //Try loading from Bundle
-      if case .success(let apis) = bundleResult {
+
+  func fetchDataFromRemoteAPI(from urlString: String,
+                              completion: @escaping (Result<APIDetails, Error>)
+                              -> Void) async{
+    print("Fetching from URL")
+    guard let url = URL(string: urlString) else {
+      let error = NSError(domain: "Could not read URL string \(urlString) ", code: 404, userInfo: nil)
+      completion(.failure(error))
+      return
+    }
+    do {
+      isLoading = true
+      let session = URLSession.shared
+      let (data, _) = try await session.data(from: url)
+      // Decode the data into the APIDetails struct
+      let decoder = JSONDecoder()
+      let apiDetails = try decoder.decode(APIDetails.self, from: data)
+      //Simulate poor network speed
+      sleep(2)
+      completion(.success(apiDetails))
+      isLoading = false
+    } catch {
+      completion(.failure(error))
+    }
+  }
+  
+  func loadAPIs(completion: @escaping (Result<APIDetails, Error>) -> Void) async {
+    //Try loading from Network
+    await fetchDataFromRemoteAPI(from: urlString) { networkFetchResult in
+      if case .success(let apis) = networkFetchResult {
         writeData(apis, to: self.fileName, with: self.fileType)
         completion(.success(apis))
-      //Try loading from Documents
-      }else{
-        loadAPIsFromDocuments(from: self.fileName, with: self.fileType) {  documentsResult in
-          if case .success(let apis) = documentsResult {
-            writeData(apis, to: self.fileName, with: self.fileType)
-            completion(.success(apis))
-            
-          }else{
-            let error = NSError(domain: "Could not load files", code: 404, userInfo: nil)
-            completion(.failure(error))
-          }
+        //Exit the function if we have the results.
+        print("Data fatched from URL: \(self.urlString)")
+        return
+      }
+      //Try loading from Bundle
+      loadAPIsFromBundle(from: self.fileName, with: self.fileType) {  bundleResult in
+        if case .success(let apis) = bundleResult {
+          writeData(apis, to: self.fileName, with: self.fileType)
+          completion(.success(apis))
+          print("Data fatched from Bundle: \(self.fileType).\(self.fileType)")
+          return
         }
       }
+      //Try loading from Document
+      loadAPIsFromDocuments(from: self.fileName, with: self.fileType) {  documentsResult in
+        if case .success(let apis) = documentsResult {
+          writeData(apis, to: self.fileName, with: self.fileType)
+          completion(.success(apis))
+          print("Data fatched from Document: \(self.fileType).\(self.fileType)")
+          return
+        }
+      }
+      //If we still did not get any successful result, set completion to failure
+      let error = NSError(domain: "Could not load files", code: 404, userInfo: nil)
+      completion(.failure(error))
     }
     
-  func writeData<T: Encodable>(_ object: T, to fileName: String, with fileType: String) {
+    func writeData<T: Encodable>(_ object: T, to fileName: String, with fileType: String) {
       let encoder = JSONEncoder()
       do {
         // Encode the object to JSON data
@@ -87,7 +126,6 @@ class APIStore {
           completion(.failure(error))
         }
       } else {
-        
         let error = NSError(domain: "Could not find \(fileName) in Bundle", code: 404, userInfo: nil)
         completion(.failure(error))
       }
