@@ -18,7 +18,6 @@ class PhotoManager: ObservableObject{
         var urlString: String {
             return "https://api.pexels.com/v1/search?query=\(keyWord)&per_page=\(photosPerPage)"
         }
-
         // URL encode the keyword
         let encodedKeyword = keyWord.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         
